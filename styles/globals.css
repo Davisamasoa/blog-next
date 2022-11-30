@@ -4,6 +4,7 @@
 
 * {
 	transition: 0.3s;
+	max-width: 100% !important;
 }
 
 body {
@@ -18,11 +19,6 @@ i {
 #loading {
 	animation: loading 0.5s infinite linear;
 	transform: rotate(60deg);
-}
-
-img,
-figure {
-	max-width: 100% !important;
 }
 
 @keyframes loading {
