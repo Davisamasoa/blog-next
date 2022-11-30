@@ -20,6 +20,11 @@ i {
 	transform: rotate(60deg);
 }
 
+img,
+figure {
+	max-width: 100% !important;
+}
+
 @keyframes loading {
 	0% {
 		transform: rotate(0);
