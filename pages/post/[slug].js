@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import { requestApi } from "../../api";
 import { Navbar } from "../../components/navbar";
 import { PostPage } from "../../components/postPage";
+import { PostPageSkeleton } from "../../components/skeleton/PostPageSkeleton";
+import { TLSkeleton } from "../../components/skeleton/TLSkeleton";
 
 export async function getServerSideProps(context) {
 	const slug = context.query.slug;
@@ -53,14 +55,7 @@ export default function Post(props) {
 			<Navbar />
 			<main className="flex px-6 w-full h-full min-h-[60vh] flex-col justify-center items-center">
 				{postDetails.date == "" ? (
-					<div className="min-w-full flex justify-center items-center">
-						<button
-							id="loading"
-							className="text-blue-300   flex w-10 h-10 justify-center items-center text-5xl"
-						>
-							<i className="bi bi-arrow-clockwise  "></i>
-						</button>
-					</div>
+					<PostPageSkeleton />
 				) : (
 					<PostPage
 						title={postDetails.title}

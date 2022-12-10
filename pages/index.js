@@ -3,16 +3,20 @@ import { requestApi } from "../api";
 import { PostCard } from "../components/postCard";
 
 import { Navbar } from "../components/navbar";
+import { TLSkeleton } from "../components/skeleton/TLSkeleton";
 export default function Home() {
 	const [post, setPost] = useState([]);
-
+	const [loading, setLoading] = useState(true);
 	useEffect(() => {
 		carregarPosts("https://blog.apiki.com/wp-json/wp/v2/posts?_embed&categories=518");
 	}, []);
 
 	function carregarPosts(url) {
 		requestApi(url)
-			.then((data) => setPost([...post, ...data]))
+			.then((data) => {
+				setPost([...post, ...data]);
+				setLoading(false);
+			})
 			.catch((err) => console.log(err));
 	}
 
@@ -39,17 +43,21 @@ export default function Home() {
 
 			<main className="flex px-6 w-full h-full min-h-[60vh] flex-col justify-center items-center">
 				<>
-					{post.map((post) => (
-						<>
-							<PostCard
-								key={post.id}
-								title={post.title.rendered}
-								img={post?._embedded?.["wp:featuredmedia"]?.["0"]?.source_url}
-								slug={post.slug}
-								date={formatDate(post.date)}
-							/>
-						</>
-					))}
+					{loading ? (
+						<TLSkeleton />
+					) : (
+						post.map((post) => (
+							<>
+								<PostCard
+									key={post.id}
+									title={post.title.rendered}
+									img={post?._embedded?.["wp:featuredmedia"]?.["0"]?.source_url}
+									slug={post.slug}
+									date={formatDate(post.date)}
+								/>
+							</>
+						))
+					)}
 					<button
 						onClick={() => {
 							carregarPosts(
