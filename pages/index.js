@@ -4,11 +4,23 @@ import { PostCard } from "../components/postCard";
 
 import { Navbar } from "../components/navbar";
 import { TLSkeleton } from "../components/skeleton/TLSkeleton";
-export default function Home() {
+
+export async function getStaticProps() {
+	const data = await fetch("https://blog.apiki.com/wp-json/wp/v2/posts?_embed&categories=518");
+	const response = await data.json();
+	return {
+		props: {
+			response,
+		},
+	};
+}
+
+export default function Home({ response }) {
 	const [post, setPost] = useState([]);
 	const [loading, setLoading] = useState(true);
 	useEffect(() => {
-		carregarPosts("https://blog.apiki.com/wp-json/wp/v2/posts?_embed&categories=518");
+		setPost(response);
+		setLoading(false);
 	}, []);
 
 	function carregarPosts(url) {

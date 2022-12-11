@@ -54,7 +54,7 @@ export default function Post(props) {
 
 			<Navbar />
 			<main className="flex px-6 w-full h-full min-h-[60vh] flex-col justify-center items-center">
-				{postDetails.date == "" ? (
+				{1 > 0 ? (
 					<PostPageSkeleton />
 				) : (
 					<PostPage
